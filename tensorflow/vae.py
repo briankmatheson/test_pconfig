@@ -10,10 +10,10 @@ Links:
     [MNIST Dataset] http://yann.lecun.com/exdb/mnist/
 """
 from __future__ import division, print_function, absolute_import
-
-import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+import tensorflow as tf
+
 
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
@@ -21,7 +21,7 @@ mnist = input_data.read_data_sets("MNIST_data", one_hot=True)
 
 # Parameters
 learning_rate = 0.01
-training_epochs = 20
+training_epochs = 10
 batch_size = 256
 display_step = 1
 examples_to_show = 10
@@ -107,3 +107,4 @@ with tf.Session() as sess:
     encode_decode = sess.run(
         y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
     # Compare original images with their reconstructions
+print('Everything finished OK')

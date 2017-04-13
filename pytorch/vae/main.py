@@ -1,4 +1,5 @@
 from __future__ import print_function
+import time
 import argparse
 import torch
 import torch.utils.data
@@ -10,7 +11,7 @@ from torchvision import datasets, transforms
 parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
 parser.add_argument('--batch-size', type=int, default=128, metavar='N',
                     help='input batch size for training (default: 64)')
-parser.add_argument('--epochs', type=int, default=10, metavar='N',
+parser.add_argument('--epochs', type=int, default=5, metavar='N',
                     help='number of epochs to train (default: 2)')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='enables CUDA training')
@@ -21,6 +22,8 @@ parser.add_argument('--log-interval', type=int, default=10, metavar='N',
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
+if not torch.cuda.is_available():
+    raise SystemExit('Cuda not available')
 
 torch.manual_seed(args.seed)
 if args.cuda:
@@ -134,6 +137,11 @@ def test(epoch):
     print('====> Test set loss: {:.4f}'.format(test_loss))
 
 
+ud_start = time.time()
+
 for epoch in range(1, args.epochs + 1):
     train(epoch)
     test(epoch)
+ud_end = time.time()
+print('Completed')
+print('Train time for {} epochs: {}'.format(args.epochs, ud_end - ud_start))
